@@ -159,26 +159,9 @@ k, _ := kde.New(data, kde.WithKernelName("uniform"))
 
 ### Kernel Comparison
 
-```
-Gaussian:       ___________
-              /           \
-             /             \
-            /               \
-           /                 \
-          /                   \
-----------------------------------------
+The three kernels differ in their shape and mathematical properties:
 
-Epanechnikov:   _________
-               /         \
-              /           \
-             /             \
-----------------------------------------
-
-Uniform:       ________
-              |        |
-              |        |
-----------------------------------------
-```
+![Kernel Comparison](docs/kernel-comparison.png)
 
 ## Bandwidth Selection
 
