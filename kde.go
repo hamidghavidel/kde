@@ -37,6 +37,15 @@ func WithBandwidthMethod(method BandwidthMethod) Option {
 	}
 }
 
+// WithWeights sets the weights for each data point.
+func WithWeights(weights []float64) Option {
+	return func(k *KDE) {
+		if len(weights) == len(k.data) {
+			k.weights = weights
+		}
+	}
+}
+
 // KDE represents a kernel density estimator.
 type KDE struct {
 	data           []float64
