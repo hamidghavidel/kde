@@ -118,7 +118,7 @@ The Gaussian kernel produces the smoothest estimates and is the default choice.
 k, _ := kde.New(data)
 
 // Explicitly set
-k, _ := kde.New(data, kde.WithKernelName("gaussian"))
+k, _ := kde.New(data, kde.WithKernelType(kde.Gaussian))
 ```
 
 ### Epanechnikov Kernel
@@ -136,7 +136,7 @@ The Epanechnikov kernel is optimal in terms of MISE efficiency (asymptotically o
 - Optimal efficiency (95% of Gaussian at infinite sample size)
 
 ```go
-k, _ := kde.New(data, kde.WithKernelName("epanechnikov"))
+k, _ := kde.New(data, kde.WithKernelType(kde.Epanechnikov))
 ```
 
 ### Uniform (Box) Kernel
@@ -154,7 +154,7 @@ The Uniform kernel gives a "moving histogram" effect.
 - Rarely used in practice (less efficient)
 
 ```go
-k, _ := kde.New(data, kde.WithKernelName("uniform"))
+k, _ := kde.New(data, kde.WithKernelType(kde.Uniform))
 ```
 
 ### Kernel Comparison
@@ -273,7 +273,7 @@ Available kernels:
 
 ```go
 // Use a specific kernel
-k, _ := kde.New(data, kde.WithKernelName("epanechnikov"))
+k, _ := kde.New(data, kde.WithKernelType(kde.Epanechnikov))
 ```
 
 ## Bandwidth Selection
@@ -297,7 +297,7 @@ Create a new KDE estimator.
 
 Options:
 - `WithKernel(k Kernel)` - Set kernel function
-- `WithKernelName(name string)` - Set kernel by name
+- `WithKernelType(t KernelType)` - Set kernel type (Gaussian, Epanechnikov, Uniform)
 - `WithBandwidth(bw float64)` - Set bandwidth manually
 - `WithBandwidthMethod(m BandwidthMethod)` - Set bandwidth selection method
 
@@ -326,9 +326,9 @@ See how different kernels affect the density estimate:
 ```go
 data := []float64{1.0, 2.0, 2.5, 3.0, 3.5, 4.0, 5.0, 5.5, 6.0, 7.0}
 
-kGaussian, _ := kde.New(data, kde.WithKernelName("gaussian"))
-kEpanechnikov, _ := kde.New(data, kde.WithKernelName("epanechnikov"))
-kUniform, _ := kde.New(data, kde.WithKernelName("uniform"))
+kGaussian, _ := kde.New(data, kde.WithKernelType(kde.Gaussian))
+kEpanechnikov, _ := kde.New(data, kde.WithKernelType(kde.Epanechnikov))
+kUniform, _ := kde.New(data, kde.WithKernelType(kde.Uniform))
 
 x, yGaussian := kGaussian.EvaluateGrid(0, 8, 100)
 _, yEpanechnikov := kEpanechnikov.EvaluateGrid(0, 8, 100)

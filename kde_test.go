@@ -19,7 +19,7 @@ func TestGaussianKernel(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := Gaussian(tt.u)
+			got := gaussianKernel(tt.u)
 			if math.Abs(got-tt.expected) > 1e-10 {
 				t.Errorf("Gaussian(%v) = %v, want %v", tt.u, got, tt.expected)
 			}
@@ -43,7 +43,7 @@ func TestEpanechnikovKernel(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := Epanechnikov(tt.u)
+			got := epanechnikovKernel(tt.u)
 			if math.Abs(got-tt.expected) > 1e-10 {
 				t.Errorf("Epanechnikov(%v) = %v, want %v", tt.u, got, tt.expected)
 			}
@@ -67,7 +67,7 @@ func TestUniformKernel(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := Uniform(tt.u)
+			got := uniformKernel(tt.u)
 			if math.Abs(got-tt.expected) > 1e-10 {
 				t.Errorf("Uniform(%v) = %v, want %v", tt.u, got, tt.expected)
 			}
@@ -190,7 +190,7 @@ func TestKDEWithOptions(t *testing.T) {
 	}
 
 	// Test with custom kernel
-	k, err = New(data, WithKernelName("epanechnikov"))
+	k, err = New(data, WithKernelType(Epanechnikov))
 	if err != nil {
 		t.Fatalf("New() error = %v", err)
 	}

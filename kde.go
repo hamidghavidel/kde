@@ -12,13 +12,10 @@ func WithKernel(kernel Kernel) Option {
 	}
 }
 
-// WithKernelName sets the kernel by name.
-func WithKernelName(name string) Option {
+// WithKernelType sets the kernel type for KDE.
+func WithKernelType(t KernelType) Option {
 	return func(k *KDE) {
-		kernel, err := KernelFunc(name)
-		if err == nil {
-			k.kernel = kernel
-		}
+		k.kernel = t.KernelFunc()
 	}
 }
 
@@ -63,7 +60,7 @@ func New(data []float64, opts ...Option) (*KDE, error) {
 
 	k := &KDE{
 		data:            data,
-		kernel:          Gaussian,
+		kernel:          Gaussian.KernelFunc(),
 		bandwidthMethod: Silverman,
 	}
 
